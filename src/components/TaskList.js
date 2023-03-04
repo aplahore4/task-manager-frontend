@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import loadingImage from '../assets/loader.gif';
 
-const backendURL = 'https://devisetechx-task-manager.up.railway.app/';
+const backendURL = 'https://devisetechx-task-manager.up.railway.app';
 // const backendURL =  'http://localhost:5000';
 
 const TaskList = () => {
