@@ -5,7 +5,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import loadingImage from '../assets/loader.gif';
 
-const backendURL = process.env.URL;
+// const backendURL = 'https://task-manager-backend-production.up.railway.app';
+// "proxy": "http://localhost:5000",
 
 const TaskList = () => {
   const defaultFormData = {
@@ -31,7 +32,7 @@ const TaskList = () => {
       if (name === '') {
         return toast.error('Input field cannot be empty.');
       }
-      await axios.post(`/${backendURL}/api/task`, formData);
+      await axios.post(`/api/task`, formData);
       setFormData(defaultFormData);
       toast.success('Task added successfully.');
       getTasks();
@@ -44,7 +45,7 @@ const TaskList = () => {
   const getTasks = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get(`/${backendURL}/api/task`);
+      const { data } = await axios.get(`/api/task`);
       setTasks(data);
     } catch (error) {
       toast.error(error.message);
@@ -56,7 +57,7 @@ const TaskList = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`/${backendURL}/api/task/${id}`);
+      await axios.delete(`/api/task/${id}`);
       getTasks();
     } catch (error) {
       toast.error(error.message);
@@ -67,7 +68,7 @@ const TaskList = () => {
   const getSingleTask = async (id) => {
     try {
       setIsEditing(true);
-      const { data } = await axios.get(`/${backendURL}api/task/${id}`);
+      const { data } = await axios.get(`/api/task/${id}`);
       setFormData({ ...defaultFormData, name: data.name });
       setTaskID(data._id);
     } catch (error) {
@@ -82,7 +83,7 @@ const TaskList = () => {
       if (name === '') {
         toast.error('Input field can not be empty.');
       }
-      await axios.put(`/${backendURL}/api/task/${taskID}`, formData);
+      await axios.put(`/api/task/${taskID}`, formData);
       setIsEditing(false);
       setFormData(defaultFormData);
       getTasks();
@@ -95,7 +96,7 @@ const TaskList = () => {
   const setToComplete = async (task) => {
     try {
       const newFormData = { name: task.name, completed: true };
-      await axios.put(`/${backendURL}/api/task/${task._id}`, newFormData);
+      await axios.put(`/api/task/${task._id}`, newFormData);
       getTasks();
     } catch (error) {
       toast.error(error.message);
